@@ -1,0 +1,25 @@
+﻿@using l4_web_api.Models;
+@model l4_web_api.ViewModels.PrescriptionsViewModel
+@{
+    ViewData["Title"] = "Рецепты";
+}
+<table border="1" cellspacing="100">
+    <caption>Рецепты</caption>
+    <tr>
+        <th>Id</th>
+        <th>Имя пациента</th>
+        <th>Возраст пацианта</th>
+        <th>Название болезни</th>
+        <th>Дата выписки рецепта</th>
+    </tr>
+    @foreach (var prescription in Model.Prescriptions)
+    {
+        <tr>
+            <td>@prescription.Id</td>
+            <td>@prescription.FamilyMember.Name</td>
+            <td>@prescription.FamilyMember.Age</td>
+            <td>@prescription.Diseases.Name</td>
+            <td>@prescription.Date.ToString()</td>
+        </tr>
+    }
+</table>

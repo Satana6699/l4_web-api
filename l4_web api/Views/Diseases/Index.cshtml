@@ -1,0 +1,25 @@
+﻿@using l4_web_api.Models;
+@model l4_web_api.ViewModels.DiseasesViewModel
+@{
+    ViewData["Title"] = "Болезни";
+}
+<table border="1" cellspacing="100">
+    <caption>Болезни</caption>
+    <tr>
+        <th>Id</th>
+        <th>Название</th>
+        <th>Длительность</th>
+        <th>Симптомы</th>
+        <th>Последствия</th>
+    </tr>
+    @foreach (var disease in Model.Diseases)
+    {
+        <tr>
+            <td>@disease.Id</td>
+            <td>@disease.Name</td>
+            <td>@disease.Duration</td>
+            <td>@disease.Symptoms</td>
+            <td>@disease.Consequences</td>
+        </tr>
+    }
+</table>
