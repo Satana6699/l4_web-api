@@ -29,8 +29,15 @@ public partial class MedicinalProductsContext : DbContext
     public virtual DbSet<Prescription> Prescriptions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS01;Database=MedicinalProducts;Trusted_Connection=True;TrustServerCertificate=True;");
+    {
+            // Загружаем конфигурацию приложения
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory) // Указывает путь к исполняемому файлу
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Загружаем appsettings.json
+                .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
